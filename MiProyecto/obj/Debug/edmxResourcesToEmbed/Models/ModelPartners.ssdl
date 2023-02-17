@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PruebaTecnicaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="personas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="apellido" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="indentifiacion" Type="int" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="id_identificacion" Type="int" Nullable="false" />
+    <Property Name="feche_create" Type="datetime" Nullable="false" />
+    <Property Name="id_identidicacion" Type="varchar" MaxLength="100" />
+    <Property Name="nombre_apellido" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="tipoIdentificacion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="indentificacion" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="feche_create" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_perosna_tipoIndentificacion">
+    <End Role="tipoIdentificacion" Type="Self.tipoIdentificacion" Multiplicity="1" />
+    <End Role="personas" Type="Self.personas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipoIdentificacion">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="personas">
+        <PropertyRef Name="id_identificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="getListPersons" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="PruebaTecnicaModelStoreContainer">
+    <EntitySet Name="personas" EntityType="Self.personas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tipoIdentificacion" EntityType="Self.tipoIdentificacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_perosna_tipoIndentificacion" Association="Self.FK_perosna_tipoIndentificacion">
+      <End Role="tipoIdentificacion" EntitySet="tipoIdentificacion" />
+      <End Role="personas" EntitySet="personas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

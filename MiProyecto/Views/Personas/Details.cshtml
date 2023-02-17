@@ -1,0 +1,83 @@
+﻿@model MiProyecto.Models.personas
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Index.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>personas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.apellido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.apellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.indentifiacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.indentifiacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.feche_create)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.feche_create)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.id_identidicacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id_identidicacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre_apellido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre_apellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipoIdentificacion.indentificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipoIdentificacion.indentificacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

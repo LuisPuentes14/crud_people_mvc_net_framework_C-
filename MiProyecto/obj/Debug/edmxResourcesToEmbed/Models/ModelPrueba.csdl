@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PruebaTecnicaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="personas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="indentifiacion" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id_identificacion" Type="Int32" Nullable="false" />
+    <Property Name="feche_create" Type="DateTime" Precision="3" />
+    <Property Name="id_identidicacion" Type="Int32" Nullable="false" />
+    <Property Name="nombre_apellido" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tipoIdentificacion" Relationship="Self.FK_perosna_tipoIndentificacion" FromRole="personas" ToRole="tipoIdentificacion" />
+  </EntityType>
+  <EntityType Name="tipoIdentificacion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="indentificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="personas" Relationship="Self.FK_perosna_tipoIndentificacion" FromRole="tipoIdentificacion" ToRole="personas" />
+  </EntityType>
+  <EntityType Name="usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="usuario1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="feche_create" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <Association Name="FK_perosna_tipoIndentificacion">
+    <End Role="tipoIdentificacion" Type="Self.tipoIdentificacion" Multiplicity="1" />
+    <End Role="personas" Type="Self.personas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipoIdentificacion">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="personas">
+        <PropertyRef Name="id_identificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PruebaTecnicaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="personas" EntityType="Self.personas" />
+    <EntitySet Name="tipoIdentificacion" EntityType="Self.tipoIdentificacion" />
+    <EntitySet Name="usuario" EntityType="Self.usuario" />
+    <AssociationSet Name="FK_perosna_tipoIndentificacion" Association="Self.FK_perosna_tipoIndentificacion">
+      <End Role="tipoIdentificacion" EntitySet="tipoIdentificacion" />
+      <End Role="personas" EntitySet="personas" />
+    </AssociationSet>
+    <FunctionImport Name="getListPersons" ReturnType="Collection(PruebaTecnicaModel.getListPersons_Result)" />
+  </EntityContainer>
+  <ComplexType Name="getListPersons_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="apellido" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="indentifiacion" Nullable="false" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="id_identificacion" Nullable="false" />
+    <Property Type="DateTime" Name="feche_create" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="id_identidicacion" Nullable="false" />
+    <Property Type="String" Name="nombre_apellido" Nullable="true" MaxLength="200" />
+  </ComplexType>
+</Schema>

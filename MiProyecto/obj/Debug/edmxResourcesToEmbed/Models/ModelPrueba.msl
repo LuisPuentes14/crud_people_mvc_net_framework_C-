@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PruebaTecnicaModelStoreContainer" CdmEntityContainer="PruebaTecnicaEntities">
+    <EntitySetMapping Name="personas">
+      <EntityTypeMapping TypeName="PruebaTecnicaModel.personas">
+        <MappingFragment StoreEntitySet="personas">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="indentifiacion" ColumnName="indentifiacion" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="id_identificacion" ColumnName="id_identificacion" />
+          <ScalarProperty Name="feche_create" ColumnName="feche_create" />
+          <ScalarProperty Name="id_identidicacion" ColumnName="id_identidicacion" />
+          <ScalarProperty Name="nombre_apellido" ColumnName="nombre_apellido" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tipoIdentificacion">
+      <EntityTypeMapping TypeName="PruebaTecnicaModel.tipoIdentificacion">
+        <MappingFragment StoreEntitySet="tipoIdentificacion">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="indentificacion" ColumnName="indentificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usuario">
+      <EntityTypeMapping TypeName="PruebaTecnicaModel.usuario">
+        <MappingFragment StoreEntitySet="usuario">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="usuario1" ColumnName="usuario" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="feche_create" ColumnName="feche_create" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="getListPersons" FunctionName="PruebaTecnicaModel.Store.getListPersons">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PruebaTecnicaModel.getListPersons_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="indentifiacion" ColumnName="indentifiacion" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="id_identificacion" ColumnName="id_identificacion" />
+          <ScalarProperty Name="feche_create" ColumnName="feche_create" />
+          <ScalarProperty Name="id_identidicacion" ColumnName="id_identidicacion" />
+          <ScalarProperty Name="nombre_apellido" ColumnName="nombre_apellido" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

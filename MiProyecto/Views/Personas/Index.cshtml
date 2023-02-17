@@ -1,0 +1,171 @@
+﻿@model IEnumerable<MiProyecto.Models.getListPersons_Result4>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Index.cshtml";
+}
+<br />
+<div style="background: #fff">
+    <div style="padding:2%">
+        <h2>Listar</h2>
+        <h4>Personas</h4>
+        <br />
+        <h6 style="color:green">
+            <span class="fa fa-plus"></span>
+            @Html.ActionLink("Agregar", "Create")
+        </h6>
+        <div class="table-responsive">
+            <table id="example" class="display table  table-striped table-bordered" data-filtering="true" data-paging="true" data-sorting="true">
+                <thead>
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Apellido
+                        </th>
+                        <th>
+                            Numero de indentificación
+                        </th>
+                        <th>
+                            Correo
+                        </th>
+                        <th>
+                            Tipo de documento
+                        </th>
+                        <th>
+                            Fecha de creación
+                        </th>
+                        <th>
+                            Identificación - tipo documento
+                        </th>
+                        <th>
+                            Nombre - Apellido
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.apellido)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NumeroDoc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tipoDoc)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.feche_create)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.id_identidicacion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nombre_apellido)
+                            </td>
+                            <td>
+
+                                <a href="#" id="modalEliminar" class="modal_eliminar" onclick="getValues(this)" data-toggle="modal" data-target="#EliminarModal"
+                                   data-id="@Html.DisplayFor(modelItem => item.id)" data-descripcion="@Html.DisplayFor(modelItem => item.nombre)">
+                                    <span class="fa fa-trash"></span>
+                                </a>
+                                <a href="/Personas/Edit/@Html.DisplayFor(modelItem => item.id)"> <span class="fa fa-edit"></span></a>
+                            </td>
+                        </tr>
+                    }
+
+                    <script>
+                        function getValues(element) {
+                            console.log(element.getAttribute('data-id'));
+
+                            let id = element.getAttribute('data-id')
+                            let descripcion = element.getAttribute('data-descripcion')
+
+                            document.getElementById('descripcionEliminar').innerText = descripcion
+                            document.getElementById('idEliminar').value = id
+
+                        }
+                    </script>
+
+            </table>
+
+            <div class="modal fade" id="EliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"></h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-h6="Close">
+                                <span class="fa fa-times" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <form action="~/Personas/DeleteConfirmed" method="post">
+                            @Html.AntiForgeryToken()
+                            <div class="modal-body">
+                                <div class="text-center">
+                                    <span>
+                                        <h5>¿Está seguro de eliminar esta persona?</h5>
+                                        <h4 id="descripcionEliminar" class="descripcion"></h4>
+                                    </span>
+                                </div>
+                                <input type="hidden" name="idEliminar" id="idEliminar">
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    <span class="fa fa-times"></span> Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="fa fa-check"></span> Aceptar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+            <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
+            <script>
+
+            let message = @Html.Raw(Json.Encode(Session["message"]));
+            let tipo = @Html.Raw(Json.Encode(Session["tipo"]));
+            console.log(message)
+            if (message != null &&  message != "" ) {
+                messageView(tipo,message )
+            }
+
+            function messageView(tipo, messagetext) {
+                if (tipo == "Ok") {
+                    toastr.success(messagetext, '¡Completado!', {
+                        timeOut: 5000
+                    });
+
+                } else {
+                    toastr.error(messagetext, '¡Error!', {
+                        timeOut: 5000
+                    });
+                }
+
+            }
+            </script>
+
+            @{
+                Session.Contents.Remove("message");
+                Session.Contents.Remove("tipo");
+            }
+
+        </div>
+    </div>
+</div>

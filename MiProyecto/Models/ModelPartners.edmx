@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PruebaTecnicaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="personas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="indentifiacion" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="id_identificacion" Type="int" Nullable="false" />
+          <Property Name="feche_create" Type="datetime" Nullable="false" />
+          <Property Name="id_identidicacion" Type="varchar" MaxLength="100" />
+          <Property Name="nombre_apellido" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tipoIdentificacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="indentificacion" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="feche_create" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_perosna_tipoIndentificacion">
+          <End Role="tipoIdentificacion" Type="Self.tipoIdentificacion" Multiplicity="1" />
+          <End Role="personas" Type="Self.personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoIdentificacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personas">
+              <PropertyRef Name="id_identificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="getListPersons" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="PruebaTecnicaModelStoreContainer">
+          <EntitySet Name="personas" EntityType="Self.personas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tipoIdentificacion" EntityType="Self.tipoIdentificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuario" EntityType="Self.usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_perosna_tipoIndentificacion" Association="Self.FK_perosna_tipoIndentificacion">
+            <End Role="tipoIdentificacion" EntitySet="tipoIdentificacion" />
+            <End Role="personas" EntitySet="personas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PruebaTecnicaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tipoIdentificacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="indentificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="personas" Relationship="PruebaTecnicaModel.FK_perosna_tipoIndentificacion" FromRole="tipoIdentificacion" ToRole="personas" />
+        </EntityType>
+        <EntityContainer Name="PruebaTecnicaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tipoIdentificacion" EntityType="Self.tipoIdentificacion" />
+          <EntitySet Name="usuario" EntityType="PruebaTecnicaModel.usuario" />
+          <EntitySet Name="personas" EntityType="PruebaTecnicaModel.personas" />
+          <AssociationSet Name="FK_perosna_tipoIndentificacion" Association="PruebaTecnicaModel.FK_perosna_tipoIndentificacion">
+            <End Role="tipoIdentificacion" EntitySet="tipoIdentificacion" />
+            <End Role="personas" EntitySet="personas" />
+          </AssociationSet>
+          <FunctionImport Name="getListPersons" ReturnType="Collection(PruebaTecnicaModel.getListPersons_Result4)" />
+        </EntityContainer>
+        <ComplexType Name="getListPersons_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="indentifiacion" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="id_identificacion" Nullable="false" />
+          <Property Type="DateTime" Name="feche_create" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="id_identidicacion" Nullable="false" />
+          <Property Type="String" Name="nombre_apellido" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <EntityType Name="usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="feche_create" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="personas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="apellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="indentifiacion" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="id_identificacion" Type="Int32" Nullable="false" />
+          <Property Name="feche_create" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_identidicacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_apellido" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tipoIdentificacion" Relationship="PruebaTecnicaModel.FK_perosna_tipoIndentificacion" FromRole="personas" ToRole="tipoIdentificacion" />
+        </EntityType>
+        <Association Name="FK_perosna_tipoIndentificacion">
+          <End Type="PruebaTecnicaModel.tipoIdentificacion" Role="tipoIdentificacion" Multiplicity="1" />
+          <End Type="PruebaTecnicaModel.personas" Role="personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tipoIdentificacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="personas">
+              <PropertyRef Name="id_identificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="getListPersons_Result1">
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="NumeroDoc" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="tipoDoc" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="feche_create" Nullable="false" Precision="23" />
+          <Property Type="String" Name="id_identidicacion" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="nombre_apellido" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="getListPersons_Result2">
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="NumeroDoc" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="tipoDoc" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="feche_create" Nullable="false" Precision="23" />
+          <Property Type="String" Name="id_identidicacion" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="nombre_apellido" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="getListPersons_Result3">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="NumeroDoc" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="tipoDoc" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="feche_create" Nullable="false" Precision="23" />
+          <Property Type="String" Name="id_identidicacion" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="nombre_apellido" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="getListPersons_Result4">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="NumeroDoc" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="tipoDoc" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="feche_create" Nullable="false" Precision="23" />
+          <Property Type="String" Name="id_identidicacion" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="nombre_apellido" Nullable="true" MaxLength="200" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PruebaTecnicaModelStoreContainer" CdmEntityContainer="PruebaTecnicaEntities">
+          <EntitySetMapping Name="tipoIdentificacion">
+            <EntityTypeMapping TypeName="PruebaTecnicaModel.tipoIdentificacion">
+              <MappingFragment StoreEntitySet="tipoIdentificacion">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="indentificacion" ColumnName="indentificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario">
+            <EntityTypeMapping TypeName="PruebaTecnicaModel.usuario">
+              <MappingFragment StoreEntitySet="usuario">
+                <ScalarProperty Name="feche_create" ColumnName="feche_create" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personas">
+            <EntityTypeMapping TypeName="PruebaTecnicaModel.personas">
+              <MappingFragment StoreEntitySet="personas">
+                <ScalarProperty Name="nombre_apellido" ColumnName="nombre_apellido" />
+                <ScalarProperty Name="id_identidicacion" ColumnName="id_identidicacion" />
+                <ScalarProperty Name="feche_create" ColumnName="feche_create" />
+                <ScalarProperty Name="id_identificacion" ColumnName="id_identificacion" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="indentifiacion" ColumnName="indentifiacion" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="getListPersons" FunctionName="PruebaTecnicaModel.Store.getListPersons">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PruebaTecnicaModel.getListPersons_Result4">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="NumeroDoc" ColumnName="NumeroDoc" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="tipoDoc" ColumnName="tipoDoc" />
+                <ScalarProperty Name="feche_create" ColumnName="feche_create" />
+                <ScalarProperty Name="id_identidicacion" ColumnName="id_identidicacion" />
+                <ScalarProperty Name="nombre_apellido" ColumnName="nombre_apellido" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
